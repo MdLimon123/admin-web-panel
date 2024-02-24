@@ -1,3 +1,4 @@
+import 'package:admin_web_panel/view/main_screens/banner_screen.dart';
 import 'package:admin_web_panel/view/widget/my_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 // upload banner btn
                 ElevatedButton.icon(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_)=> BannerScreen()));
+                    },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 117, vertical: 30),
                     backgroundColor: Colors.deepOrange

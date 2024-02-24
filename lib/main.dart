@@ -1,4 +1,4 @@
-import 'package:admin_web_panel/view/home_screen.dart';
+import 'package:admin_web_panel/view/main_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
