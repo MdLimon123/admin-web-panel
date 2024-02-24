@@ -1,4 +1,6 @@
+import 'package:admin_web_panel/global/global_vars.dart';
 import 'package:admin_web_panel/view/widget/my_appbar.dart';
+import 'package:admin_web_panel/viewModel/main_view_model.dart';
 import 'package:flutter/material.dart';
 
 class BannerScreen extends StatefulWidget {
@@ -12,6 +14,7 @@ class BannerScreen extends StatefulWidget {
 class _BannerScreenState extends State<BannerScreen> {
 
  final GlobalKey _formKey = GlobalKey<FormState>();
+ MainViewModel mainViewModel = MainViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +51,21 @@ class _BannerScreenState extends State<BannerScreen> {
                                   border: Border.all(color: Colors.grey.shade300),
                                   borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Center(),
+                                child: Center(
+                                  child: imageFile !=null? Image.memory(imageFile): Container(),
+                                ),
                               ),
 
                               const SizedBox(height: 10,),
                               // pick image
                               ElevatedButton(
-                                  onPressed: (){},
+                                  onPressed: ()async{
+                                   await mainViewModel.pickFile();
+                                   setState(() {
+                                     imageFile;
+                                     fileName;
+                                   });
+                                  },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.purple
                                   ),
