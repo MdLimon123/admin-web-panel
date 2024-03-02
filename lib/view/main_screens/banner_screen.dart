@@ -1,7 +1,10 @@
 import 'package:admin_web_panel/global/global_vars.dart';
 import 'package:admin_web_panel/view/widget/my_appbar.dart';
-import 'package:admin_web_panel/viewModel/main_view_model.dart';
+import 'package:admin_web_panel/viewModel/banner_view_model.dart';
+import 'package:admin_web_panel/viewModel/common_view_model.dart';
 import 'package:flutter/material.dart';
+
+import '../../global/global_ins.dart';
 
 class BannerScreen extends StatefulWidget {
   const BannerScreen({super.key});
@@ -13,8 +16,8 @@ class BannerScreen extends StatefulWidget {
 
 class _BannerScreenState extends State<BannerScreen> {
 
- final GlobalKey _formKey = GlobalKey<FormState>();
- MainViewModel mainViewModel = MainViewModel();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class _BannerScreenState extends State<BannerScreen> {
         child: Column(
           children: [
             Form(
-              key: _formKey,
+              key: formKey,
                 child: Column(
                   children: [
                     const Divider(
@@ -60,7 +63,10 @@ class _BannerScreenState extends State<BannerScreen> {
                               // pick image
                               ElevatedButton(
                                   onPressed: ()async{
-                                   await mainViewModel.pickFile();
+
+
+
+                                   await bannerViewModel.pickFile();
                                    setState(() {
                                      imageFile;
                                      fileName;
@@ -81,7 +87,16 @@ class _BannerScreenState extends State<BannerScreen> {
                         const SizedBox(width: 40,),
                         // save image
                         ElevatedButton(
-                            onPressed: (){},
+                            onPressed: ()async{
+                              commonViewModel.showSnackBar("uploading banner...", context);
+                             await bannerViewModel.saveBannerImageInfoToFirestore();
+                           setState(() {
+                             formKey.currentState!.reset();
+                             imageFile = null;
+                           });
+
+                              commonViewModel.showSnackBar("uploaded successfully...", context);
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.purple
                             ),
